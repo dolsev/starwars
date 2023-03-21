@@ -11,7 +11,7 @@ interface FetchBooksOptions {
 const defaultOptions: FetchBooksOptions = {
     searchQuery: '',
     startIndex: 0,
-    maxResults: 10,
+    maxResults: 30,
 };
 
 const fetchBooks = async (

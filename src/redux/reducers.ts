@@ -1,3 +1,4 @@
+//reducers.ts
 import { AppState, AppAction } from './types';
 import initialState from './initialState';
 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+//Home.tsx
+import React, {useEffect, useState} from 'react';
 import './home.css';
 import { fetchBooks } from '../api';
 import { Book } from '../redux/types';
@@ -9,6 +10,19 @@ const Home = () => {
 
     const [searchQuery, setSearchQuery] = useState('');
     const [books, setBooks] = useState<Book[]>([]);
+
+    useEffect(() => {
+        const fetchBooksAsync = async () => {
+            try {
+                const books = await fetchBooks({ searchQuery: '*' });
+                setBooks(books);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchBooksAsync();
+    }, []);
+
     const handleSearch = async (event:any) => {
         event.preventDefault();
         try {
@@ -61,16 +75,20 @@ const Home = () => {
 
             </nav>
             );
-
+            <div className='books-list'>
             {books.map((book) => (
-                <div key={book.id}>
-                    <h2>{book.title}</h2>
+                <div className='book' key={book.id}>
+                    {book.imageLinks?.thumbnail?
+                        <div className='thumbnail-container'>
+                            <img className='thumbnail' src={book.imageLinks?.thumbnail} alt={book.title} /></div>
+                        :<div className='thumbnail-container'><img className='thumbnail' src='./images/CoverNotAvailable' alt={book.title} /></div>
+                    }
+                    <h4>{book.title}</h4>
                     <p>Authors: {book.authors?.join(', ')}</p>
                     <p>Categories: {book.categories?.join(', ')}</p>
-                    <p>Description: {book.description}</p>
-                    <img src={book.imageLinks?.thumbnail} alt={book.title} />
                 </div>
             ))}
+            </div>
             <button className='load-more'></button>
         </div>
     );

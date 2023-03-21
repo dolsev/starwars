@@ -1,3 +1,4 @@
+//initialState.ts
 import { AppState } from './types';
 
 const initialState: AppState = {

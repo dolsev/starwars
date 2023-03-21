@@ -1,5 +1,4 @@
-// src/redux/actions.ts
-
+//actions.ts
 import { AppAction, Book } from './types';
 
 export const fetchBooks = (books: Book[]): AppAction => ({
