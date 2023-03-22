@@ -4,24 +4,25 @@ const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
 
 interface FetchBooksOptions {
     searchQuery: string;
-    startIndex?: number;
-    maxResults?: number;
+    page: number;
+    maxResults: number;
 }
 
 const defaultOptions: FetchBooksOptions = {
     searchQuery: '',
-    startIndex: 0,
+    page: 1,
     maxResults: 30,
 };
-
 const fetchBooks = async (
     options: FetchBooksOptions = defaultOptions,
 ): Promise<Book[]> => {
-    const { searchQuery, startIndex, maxResults } = {
+    const { searchQuery, page, maxResults } = {
         ...defaultOptions,
         ...options,
     };
+    const startIndex = (page - 1) * maxResults;
     const url = `${BASE_URL}?q=${searchQuery}&startIndex=${startIndex}&maxResults=${maxResults}&key=${apiKey}`;
+
 
     try {
         const response = await fetch(url);

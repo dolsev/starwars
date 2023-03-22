@@ -1,7 +1,8 @@
 //types.ts
+
 export interface Book {
     id: string;
-    title?: string;
+    title: string;
     authors?: string[];
     categories?: string[];
     description?: string;
@@ -11,60 +12,30 @@ export interface Book {
 }
 
 export interface AppState {
+    searchQuery: string;
     books: Book[];
-    searchTerm: string;
-    filterCategory: string;
-    filterSort: string;
-    isLoading: boolean;
-    error: string | null;
+    isLoading:boolean;
 }
 
-export interface FetchBooksAction {
-    type: 'FETCH_BOOKS';
+
+export interface SetSearchQueryAction {
+    type: 'SET_SEARCH_QUERY';
+    payload: {
+        searchQuery: string;
+    };
+}
+
+export interface SetBooksAction {
+    type: 'SET_BOOKS';
     payload: {
         books: Book[];
     };
 }
-
-export interface SetSearchTermAction {
-    type: 'SET_SEARCH_TERM';
-    payload: {
-        term: string;
-    };
-}
-
-export interface SetFilterCategoryAction {
-    type: 'SET_FILTER_CATEGORY';
-    payload: {
-        category: string;
-    };
-}
-
-export interface SetFilterSortAction {
-    type: 'SET_FILTER_SORT';
-    payload: {
-        sort: string;
-    };
-}
-
-export interface SetLoadingAction {
-    type: 'SET_LOADING';
+export interface SetIsLoadingAction {
+    type: 'SET_IS_LOADING';
     payload: {
         isLoading: boolean;
     };
 }
 
-export interface SetErrorAction {
-    type: 'SET_ERROR';
-    payload: {
-        error: string | null;
-    };
-}
-
-export type AppAction =
-    | FetchBooksAction
-    | SetSearchTermAction
-    | SetFilterCategoryAction
-    | SetFilterSortAction
-    | SetLoadingAction
-    | SetErrorAction;
+export type AppAction = SetSearchQueryAction | SetBooksAction | SetIsLoadingAction;

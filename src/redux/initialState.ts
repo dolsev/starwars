@@ -2,12 +2,9 @@
 import { AppState } from './types';
 
 const initialState: AppState = {
+    searchQuery: '',
     books: [],
-    searchTerm: '',
-    filterCategory: 'all',
-    filterSort: 'relevance',
-    isLoading: false,
-    error: null,
+    isLoading:false,
 };
 
 export default initialState;
