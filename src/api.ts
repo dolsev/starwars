@@ -1,3 +1,4 @@
+//api.ts
 import { Book } from './redux/types';
 const apiKey='AIzaSyA_4EYK6nLW6Ye3z8G5ULrBEMpOOspFZAQ'
 const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
@@ -6,22 +7,35 @@ interface FetchBooksOptions {
     searchQuery: string;
     page: number;
     maxResults: number;
+    sorting:'relevance' |'newest',
+    filter:string
+
 }
 
 const defaultOptions: FetchBooksOptions = {
     searchQuery: '',
     page: 1,
     maxResults: 30,
+    sorting:'relevance',
+    filter:'all'
 };
 const fetchBooks = async (
     options: FetchBooksOptions = defaultOptions,
 ): Promise<Book[]> => {
-    const { searchQuery, page, maxResults } = {
+    const { searchQuery, page, maxResults, sorting, filter } = {
         ...defaultOptions,
         ...options,
     };
     const startIndex = (page - 1) * maxResults;
-    const url = `${BASE_URL}?q=${searchQuery}&startIndex=${startIndex}&maxResults=${maxResults}&key=${apiKey}`;
+    let sort =''
+    if (sorting==='newest'){
+        sort='&orderBy=newest'
+    }
+    else{sort=''}
+    let filtering =''
+    filtering = filter === 'all' ? '' : `subject:${filter}+`;
+
+    const url = `${BASE_URL}?q=${filtering}${searchQuery}&startIndex=${startIndex}&maxResults=${maxResults}${sort}&key=${apiKey}`;
 
 
     try {

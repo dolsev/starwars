@@ -3,10 +3,10 @@
 export interface Book {
     id: string;
     title: string;
-    authors?: string[];
-    categories?: string[];
-    description?: string;
-    imageLinks?: {
+    authors: string[];
+    categories: string[];
+    description: string;
+    imageLinks: {
         thumbnail: string;
     };
 }

@@ -1,4 +1,5 @@
-import React, {useEffect, useState} from 'react';
+//home.tsx
+import React, { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './home.css';
 import { fetchBooks } from '../api';
@@ -15,13 +16,23 @@ const Home = () => {
     const isLoading = useSelector((state: AppState) => state.isLoading);
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
+    const [sorting, setSorting] = useState<'relevance' | 'newest'>('relevance');
+    const [filter, setFiltering] = useState<string>('all');
 
+
+    function handleSortingChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        setSorting(event.target.value as 'relevance' | 'newest');
+    }
+
+    function handleFilteringChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        setFiltering(event.target.value);
+    }
 
     const handleSearch = async (event: any) => {
         event.preventDefault();
         dispatch(setIsLoading(true));
         try {
-            const foundBooks = await fetchBooks({ searchQuery, page: 1, maxResults:30 });
+            const foundBooks = await fetchBooks({ searchQuery, page: 1, maxResults:30,sorting, filter });
             dispatch(setBooks(foundBooks));
         } catch (error) {
             console.error(error);
@@ -34,9 +45,10 @@ const Home = () => {
     const handleLoadMore = async () => {
         dispatch(setIsLoading(true));
         try {
-            const foundBooks = await fetchBooks({ searchQuery, page: currentPage + 1,maxResults:30 });
+            const foundBooks = await fetchBooks({ searchQuery, page: currentPage + 1,maxResults:30,sorting, filter });
             setCurrentPage(currentPage + 1);
-            dispatch(setBooks([...books, ...foundBooks]));
+            const filteredFoundBooks = foundBooks.filter(book => !books.some(prevBook => prevBook.id === book.id));
+            dispatch(setBooks([...books, ...filteredFoundBooks]));
         } catch (error) {
             console.error(error);
         }
@@ -70,7 +82,7 @@ const Home = () => {
                     <div className="filter-sorting-box">
                         <div className="categories">
                             <label htmlFor="categories">Categories: </label>
-                            <select name="categories" id="categories">
+                            <select name="categories" id="categories" value={filter} onChange={handleFilteringChange}>
                                 <option value="all">all</option>
                                 <option value="art">art</option>
                                 <option value="biography">biography</option>
@@ -82,9 +94,9 @@ const Home = () => {
                         </div>
                         <div className="sorting">
                             <label htmlFor="sorting">Sort by: </label>
-                            <select name="sorting" id="sorting">
-                                <option value="Relevance">relevance</option>
-                                <option value="art">newest</option>
+                            <select name="sorting" id="sorting" value={sorting} onChange={handleSortingChange}>
+                                <option value="relevance">relevance</option>
+                                <option value="newest">newest</option>
                             </select>
                         </div>
                     </div>
@@ -96,16 +108,22 @@ const Home = () => {
                     {books.map((book) => (
                         <div className='book' key={book.id}>
                             {book.imageLinks?.thumbnail?
+
                                 <div className='thumbnail-container'>
                                     <img className='thumbnail' src={book.imageLinks?.thumbnail} alt={book.title} /></div>
                                 :<div className='thumbnail-container'><img className='thumbnail' src='/images/CoverNotAvailable.jpg' alt={book.title} /></div>
                             }
-                            {book.title.length<50
-                                ?<h4 className='book-title'>{book.title}</h4>
-                                :<h4 className='book-title'>{book.title.substring(0,95)}...</h4>}
+                            <h4 className='book-title'>
+                                {book.title.length < 95 ? book.title : book.title.substring(0,95) + '...'}
+                            </h4>
+
                             <div className='authors-categories-box'>
-                                <p className='authors-p'>{book.authors?.join(', ')}</p>
-                                <p className='categories-p'>{book.categories?.join(', ')}</p>
+                                <p className='authors-p'>
+                                    {book.authors.join(', ').length < 95 ? book.authors?.join(', ') : book.authors?.join(', ').substring(0, 95) + '...'}
+                                </p>
+                                <p className='categories-p'>
+                                    {book.categories.join(', ').length < 95 ? book.categories?.join(', ') : book.categories?.join(', ').substring(0, 95) + '...'}
+                                </p>
                             </div>
 
                         </div>
