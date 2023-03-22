@@ -7,8 +7,6 @@ import { AppState } from '../redux/types';
 import {setBooks, setIsLoading, setSearchQuery} from '../redux/actions';
 import Spinner from "../components/Spinner";
 
-
-
 const Home = () => {
 
     const searchQuery = useSelector((state: AppState) => state.searchQuery);
@@ -18,6 +16,7 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [sorting, setSorting] = useState<'relevance' | 'newest'>('relevance');
     const [filter, setFiltering] = useState<string>('all');
+    const [foundBooksNumber, setFoundBooksNumber] = useState<number>(0)
 
 
     function handleSortingChange(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -32,12 +31,22 @@ const Home = () => {
         event.preventDefault();
         dispatch(setIsLoading(true));
         try {
-            const foundBooks = await fetchBooks({ searchQuery, page: 1, maxResults:30,sorting, filter });
-            dispatch(setBooks(foundBooks));
+            const { fetchedBooks } = await fetchBooks({
+                searchQuery,
+                page: 1,
+                maxResults: 30,
+                sorting,
+                filter,
+            });
+            dispatch(setBooks(fetchedBooks));
+            const {totalItems} = await fetchBooks({
+                searchQuery,
+                sorting,
+                filter,})
+            setFoundBooksNumber(totalItems)
         } catch (error) {
             console.error(error);
-        }
-        finally {
+        } finally {
             dispatch(setIsLoading(false));
         }
     };
@@ -45,17 +54,25 @@ const Home = () => {
     const handleLoadMore = async () => {
         dispatch(setIsLoading(true));
         try {
-            const foundBooks = await fetchBooks({ searchQuery, page: currentPage + 1,maxResults:30,sorting, filter });
+            const { fetchedBooks } = await fetchBooks({
+                searchQuery,
+                page: currentPage + 1,
+                maxResults: 30,
+                sorting,
+                filter,
+            });
             setCurrentPage(currentPage + 1);
-            const filteredFoundBooks = foundBooks.filter(book => !books.some(prevBook => prevBook.id === book.id));
+            const filteredFoundBooks = fetchedBooks.filter(
+                (book) => !books.some((prevBook) => prevBook.id === book.id)
+            );
             dispatch(setBooks([...books, ...filteredFoundBooks]));
         } catch (error) {
             console.error(error);
-        }
-        finally {
+        } finally {
             dispatch(setIsLoading(false));
         }
     };
+
 
 
     return (
@@ -71,7 +88,7 @@ const Home = () => {
                                 className="searchTerm"
                                 placeholder="Which book are you looking for?"
                                 value={searchQuery}
-                                onChange={(event) => dispatch(setSearchQuery(event.target.value))} // dispatch the setSearchQuery action with the input value
+                                onChange={(event) => dispatch(setSearchQuery(event.target.value))}
                             />
 
                             <button type="submit" className="searchButton">
@@ -102,6 +119,8 @@ const Home = () => {
                     </div>
                 </div>
             </nav>
+            {foundBooksNumber>1?<h4>{foundBooksNumber} books found just for you! </h4>:null}
+
             <div className='book-list-wrapper'>
                 {isLoading ? <Spinner /> : null}
                 <div className='books-list'>

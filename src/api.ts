@@ -1,15 +1,14 @@
 //api.ts
 import { Book } from './redux/types';
-const apiKey='AIzaSyA_4EYK6nLW6Ye3z8G5ULrBEMpOOspFZAQ'
+const apiKey=process.env.REACT_APP_API_KEY
 const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
 
 interface FetchBooksOptions {
     searchQuery: string;
-    page: number;
-    maxResults: number;
-    sorting:'relevance' |'newest',
-    filter:string
-
+    page?: number;
+    maxResults?: number;
+    sorting?:'relevance' |'newest',
+    filter?:string
 }
 
 const defaultOptions: FetchBooksOptions = {
@@ -19,14 +18,20 @@ const defaultOptions: FetchBooksOptions = {
     sorting:'relevance',
     filter:'all'
 };
+
+interface FetchBooksResult {
+    fetchedBooks: Book[];
+    totalItems: number;
+}
+
 const fetchBooks = async (
     options: FetchBooksOptions = defaultOptions,
-): Promise<Book[]> => {
+): Promise<FetchBooksResult> => {
     const { searchQuery, page, maxResults, sorting, filter } = {
         ...defaultOptions,
         ...options,
     };
-    const startIndex = (page - 1) * maxResults;
+    const startIndex = ((page??1) - 1) * (maxResults??30);
     let sort =''
     if (sorting==='newest'){
         sort='&orderBy=newest'
@@ -34,17 +39,15 @@ const fetchBooks = async (
     else{sort=''}
     let filtering =''
     filtering = filter === 'all' ? '' : `subject:${filter}+`;
-
     const url = `${BASE_URL}?q=${filtering}${searchQuery}&startIndex=${startIndex}&maxResults=${maxResults}${sort}&key=${apiKey}`;
-
-
     try {
         const response = await fetch(url);
         if (!response.ok) {
             throw new Error('Error fetching books');
         }
         const data = await response.json();
-        const books = data.items.map((item: any) => ({
+        const totalItems = data.totalItems;
+        const fetchedBooks = data.items.map((item: any) => ({
             id: item.id,
             title: item.volumeInfo.title,
             authors: item.volumeInfo.authors || [],
@@ -52,11 +55,12 @@ const fetchBooks = async (
             description: item.volumeInfo.description || '',
             imageLinks: item.volumeInfo.imageLinks || { thumbnail: '' },
         }));
-        return books;
+        return { fetchedBooks, totalItems };
     } catch (error) {
         console.error(error);
         throw error;
     }
 };
+;
 
 export { fetchBooks };
