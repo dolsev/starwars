@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './home.css';
 import { fetchBooks } from '../api';
@@ -15,13 +15,17 @@ const Home = () => {
     const isLoading = useSelector((state: AppState) => state.isLoading);
     const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
+    const [sorting, setSorting] = useState<'relevance' | 'newest'>('relevance');
 
+    function handleSortingChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        setSorting(event.target.value as 'relevance' | 'newest');
+    }
 
     const handleSearch = async (event: any) => {
         event.preventDefault();
         dispatch(setIsLoading(true));
         try {
-            const foundBooks = await fetchBooks({ searchQuery, page: 1, maxResults:30 });
+            const foundBooks = await fetchBooks({ searchQuery, page: 1, maxResults:30,sorting });
             dispatch(setBooks(foundBooks));
         } catch (error) {
             console.error(error);
@@ -34,7 +38,7 @@ const Home = () => {
     const handleLoadMore = async () => {
         dispatch(setIsLoading(true));
         try {
-            const foundBooks = await fetchBooks({ searchQuery, page: currentPage + 1,maxResults:30 });
+            const foundBooks = await fetchBooks({ searchQuery, page: currentPage + 1,maxResults:30,sorting });
             setCurrentPage(currentPage + 1);
             dispatch(setBooks([...books, ...foundBooks]));
         } catch (error) {
@@ -82,10 +86,10 @@ const Home = () => {
                         </div>
                         <div className="sorting">
                             <label htmlFor="sorting">Sort by: </label>
-                            <select name="sorting" id="sorting">
-                                <option value="Relevance">relevance</option>
-                                <option value="art">newest</option>
-                            </select>
+                            <select name="sorting" id="sorting" value={sorting} onChange={handleSortingChange}>
+                            <option value="relevance">relevance</option>
+                            <option value="newest">newest</option>
+                        </select>
                         </div>
                     </div>
                 </div>
