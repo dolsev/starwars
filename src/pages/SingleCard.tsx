@@ -47,9 +47,9 @@ function SingleCard() {
             </div>
             <div className='right'>
                 <h1 className='r-title'>{singleBook.title}</h1>
-                <p className='r-paragraph'>{singleBook.authors.join(', ')}</p>
-                <p className='r-paragraph'>{singleBook.categories.join(', ')}</p>
-                <div dangerouslySetInnerHTML={{ __html: singleBook.description }} />
+                <p className='authors'>{singleBook.authors.join(', ')}</p>
+                <p className='categories'>{singleBook.categories.join(', ')}</p>
+                <p className='description' dangerouslySetInnerHTML={{ __html: singleBook.description }} />
             </div>
         </div>
     );
