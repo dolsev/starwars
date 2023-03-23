@@ -1,55 +1,25 @@
 //home.tsx
-import React, { useState} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, {useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import './home.css';
-import { fetchBooks } from '../api';
-import { AppState } from '../redux/types';
-import {setBooks, setIsLoading, setSearchQuery} from '../redux/actions';
+import {fetchBooks} from '../api';
+import {AppState} from '../redux/types';
+import {setBooks, setIsLoading} from '../redux/actions';
 import Spinner from "../components/Spinner";
+import {Link} from "react-router-dom";
 
 const Home = () => {
-
+    const dispatch = useDispatch();
+    const sorting = useSelector((state: AppState) => state.sorting);
+    const filter = useSelector((state: AppState) => state.filter);
     const searchQuery = useSelector((state: AppState) => state.searchQuery);
     const books = useSelector((state: AppState) => state.books);
     const isLoading = useSelector((state: AppState) => state.isLoading);
-    const dispatch = useDispatch();
+    const booksNumber = useSelector((state:AppState)=>state.booksNumber);
+
+
+    //no redux needed for current page
     const [currentPage, setCurrentPage] = useState(1);
-    const [sorting, setSorting] = useState<'relevance' | 'newest'>('relevance');
-    const [filter, setFiltering] = useState<string>('all');
-    const [foundBooksNumber, setFoundBooksNumber] = useState<number>(0)
-
-
-    function handleSortingChange(event: React.ChangeEvent<HTMLSelectElement>) {
-        setSorting(event.target.value as 'relevance' | 'newest');
-    }
-
-    function handleFilteringChange(event: React.ChangeEvent<HTMLSelectElement>) {
-        setFiltering(event.target.value);
-    }
-
-    const handleSearch = async (event: any) => {
-        event.preventDefault();
-        dispatch(setIsLoading(true));
-        try {
-            const { fetchedBooks } = await fetchBooks({
-                searchQuery,
-                page: 1,
-                maxResults: 30,
-                sorting,
-                filter,
-            });
-            dispatch(setBooks(fetchedBooks));
-            const {totalItems} = await fetchBooks({
-                searchQuery,
-                sorting,
-                filter,})
-            setFoundBooksNumber(totalItems)
-        } catch (error) {
-            console.error(error);
-        } finally {
-            dispatch(setIsLoading(false));
-        }
-    };
 
     const handleLoadMore = async () => {
         dispatch(setIsLoading(true));
@@ -72,85 +42,41 @@ const Home = () => {
             dispatch(setIsLoading(false));
         }
     };
-
-
-
     return (
-
         <div className='Home'>
-            <nav>
-                <div className='nav-container'>
-                    <h1 className='action-call'>Try to find your best book yet!</h1>
-                    <form onSubmit={handleSearch}>
-                        <div className="search-box">
-                            <input
-                                type="text"
-                                className="searchTerm"
-                                placeholder="Which book are you looking for?"
-                                value={searchQuery}
-                                onChange={(event) => dispatch(setSearchQuery(event.target.value))}
-                            />
-
-                            <button type="submit" className="searchButton">
-                                <img className='search-image' alt="search" src="./images/search.png" />
-                            </button>
-                        </div>
-                    </form>
-                    <div className="filter-sorting-box">
-                        <div className="categories">
-                            <label htmlFor="categories">Categories: </label>
-                            <select name="categories" id="categories" value={filter} onChange={handleFilteringChange}>
-                                <option value="all">all</option>
-                                <option value="art">art</option>
-                                <option value="biography">biography</option>
-                                <option value="computers">computers</option>
-                                <option value="history">history</option>
-                                <option value="medical">medical</option>
-                                <option value="poetry">poetry</option>
-                            </select>
-                        </div>
-                        <div className="sorting">
-                            <label htmlFor="sorting">Sort by: </label>
-                            <select name="sorting" id="sorting" value={sorting} onChange={handleSortingChange}>
-                                <option value="relevance">relevance</option>
-                                <option value="newest">newest</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            {foundBooksNumber>1?<h4>{foundBooksNumber} books found just for you! </h4>:null}
-
+            {booksNumber>1?<h4>{booksNumber} books found just for you! </h4>:null}
             <div className='book-list-wrapper'>
                 {isLoading ? <Spinner /> : null}
-                <div className='books-list'>
-                    {books.map((book) => (
-                        <div className='book' key={book.id}>
-                            {book.imageLinks?.thumbnail?
+                    <div className='books-list'>
+                        {books.map((book) => (
+                            <Link to={`/book/${book.id}`}>
+                            <div className='book' key={book.id}>
+                                {book.imageLinks.thumbnail?
 
-                                <div className='thumbnail-container'>
-                                    <img className='thumbnail' src={book.imageLinks?.thumbnail} alt={book.title} /></div>
-                                :<div className='thumbnail-container'><img className='thumbnail' src='/images/CoverNotAvailable.jpg' alt={book.title} /></div>
-                            }
-                            <h4 className='book-title'>
-                                {book.title.length < 95 ? book.title : book.title.substring(0,95) + '...'}
-                            </h4>
+                                    <div className='thumbnail-container'>
+                                        <img className='thumbnail' src={book.imageLinks.thumbnail+'zoom=2'} alt={book.title} /></div>
+                                    :<div className='thumbnail-container'><img className='thumbnail' src='/images/CoverNotAvailable.jpg' alt={book.title} /></div>
+                                }
+                                <h4 className='book-title'>
+                                    {book.title.length < 95 ? book.title : book.title.substring(0,95) + '...'}
+                                </h4>
 
-                            <div className='authors-categories-box'>
-                                <p className='authors-p'>
-                                    {book.authors.join(', ').length < 95 ? book.authors?.join(', ') : book.authors?.join(', ').substring(0, 95) + '...'}
-                                </p>
-                                <p className='categories-p'>
-                                    {book.categories.join(', ').length < 95 ? book.categories?.join(', ') : book.categories?.join(', ').substring(0, 95) + '...'}
-                                </p>
+                                <div className='authors-categories-box'>
+                                    <p className='authors-p'>
+                                        {book.authors.join(', ').length < 95 ? book.authors?.join(', ') : book.authors?.join(', ').substring(0, 95) + '...'}
+                                    </p>
+                                    <p className='categories-p'>
+                                        {book.categories.join(', ').length < 95 ? book.categories?.join(', ') : book.categories?.join(', ').substring(0, 95) + '...'}
+                                    </p>
+                                </div>
+
                             </div>
-
-                        </div>
-                    ))}
-                </div>
+                            </Link>
+                        ))}
+                    </div>
             </div>
-            {books.length<1?null:<div className='load-more-wrapper'>{isLoading ? <Spinner /> : null}<button onClick={handleLoadMore} className='load-more'>Load More</button></div>}
 
+            {books.length<1?null:<div className='load-more-wrapper'>{isLoading ? <Spinner /> : null}<button onClick={handleLoadMore} className='load-more'>Load More</button></div>}
         </div>
     );
 };

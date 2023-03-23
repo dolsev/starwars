@@ -1,4 +1,4 @@
-.Home{
+.Home {
     padding: 0 0 15px 0;
     display: flex;
     flex-direction: column;
@@ -6,73 +6,6 @@
     flex-wrap: wrap;
 }
 
-nav{
-    width: 100vw;
-    height: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0 10px 40px;
-    gap: 15px;
-    text-align: center;
-}
-
-.nav-container{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.action-call{
-    margin: 10px 0 0;
-    color: rgba(107, 73, 236, 0.86);
-}
-
-.search-box{
-    position: relative;
-    display: flex;
-    width: 100%;
-}
-
-.searchTerm {
-    width: 100%;
-    border: 3px solid #fdfdfd;
-    border-right: none;
-    padding: 5px;
-    height: 20px;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    color: #a3b1b4;
-}
-
-.searchTerm:focus{
-    color: #566164;
-}
-
-.searchButton {
-    width: 40px;
-    height: 36px;
-    border: none;
-    background-color: rgba(196, 186, 250, 0.86);
-    text-align: center;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 20px;
-    transition: background-color 0.2s ease-in-out;
-}
-.searchButton:hover, .searchButton:focus {
-    background-color: rgba(196, 186, 250, 0.96);
-}
-
-
-.search-image{
-    width: 25px;
-}
-
-.filter-sorting-box{
-    display: flex;
-    gap: 5px;
-}
 .book-list-wrapper {
     padding: 0 10%;
     display: flex;
@@ -85,11 +18,9 @@ nav{
     flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
-
 }
 
-
-.book{
+.book {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -100,47 +31,51 @@ nav{
     border-radius: 2px;
     width: 300px;
     height: 450px;
-    padding: 10px;
+    padding: 25px 10px 0;
     transition: box-shadow 0.2s ease-in-out;
     cursor: pointer;
-    justify-content: center;
 }
+
 .book:hover {
     box-shadow: 4px 4px 20px rgba(41, 52, 48, 0.9);
 }
 
-
-.thumbnail-container{
+.thumbnail-container {
     height: 160px;
     width: 100px;
+    border: #abaaaa 1px solid;
 }
 
-.thumbnail{
+.thumbnail {
     width: 100%;
-    object-fit: contain;
+    height: 100%;
+    object-fit: cover;
 }
 
-.book-title{
+.book-title {
     font-weight: 800;
     color: rgba(11, 11, 14, 0.86);
     letter-spacing: 0.1px;
     margin-block-start: 1em;
     margin-block-end: 0;
 }
-.authors-categories-box{
+
+.authors-categories-box {
     color: #566164;
 }
-.authors-p{
-font-weight: 600;
+
+.authors-p {
+    font-weight: 600;
 }
-.categories-p{
+
+.categories-p {
     text-decoration: underline;
 }
 
-.load-more-wrapper{
+.load-more-wrapper {
     display: flex;
     flex-direction: column;
-    gap:10px;
+    gap: 10px;
     align-items: center;
 }
 

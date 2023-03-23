@@ -8,6 +8,9 @@ export interface Book {
     description: string;
     imageLinks: {
         thumbnail: string;
+        small:string;
+        medium:string;
+        large:string;
     };
 }
 
@@ -15,6 +18,10 @@ export interface AppState {
     searchQuery: string;
     books: Book[];
     isLoading:boolean;
+    sorting:string;
+    filter:string;
+    booksNumber:number,
+    singleBook:Book
 }
 
 
@@ -31,11 +38,41 @@ export interface SetBooksAction {
         books: Book[];
     };
 }
+export interface SetSingleBookAction {
+    type: 'SET_SINGLE_BOOK';
+    payload: {
+        singleBook: Book;
+    };
+}
 export interface SetIsLoadingAction {
     type: 'SET_IS_LOADING';
     payload: {
         isLoading: boolean;
     };
 }
+export interface SetSortingAction {
+    type: 'SET_SORTING';
+    payload: {
+        sorting:string,
+    }
+}
+export interface SetFiltering {
+    type:'SET_FILTERING';
+    payload:{
+        filter:string
+    }
+}
+export interface SetBooksNumber {
+    type:'SET_BOOKS_NUMBER';
+    payload:{
+        booksNumber:number
+    }
+}
 
-export type AppAction = SetSearchQueryAction | SetBooksAction | SetIsLoadingAction;
+export type AppAction = SetSearchQueryAction
+    | SetBooksAction
+    | SetIsLoadingAction
+    | SetSortingAction
+    | SetFiltering
+    | SetBooksNumber
+    | SetSingleBookAction;
