@@ -18,7 +18,6 @@ function SingleCard() {
                 dispatch(setIsLoading(true));
                 try {
                     const {fetchedBook} = await fetchBook({id})
-                    console.log(typeof fetchedBook.id)
                     dispatch(setSingleBook(fetchedBook))
                 } catch (error) {
                     console.error(error);
@@ -50,7 +49,7 @@ function SingleCard() {
                 <h1 className='r-title'>{singleBook.title}</h1>
                 <p className='r-paragraph'>{singleBook.authors.join(', ')}</p>
                 <p className='r-paragraph'>{singleBook.categories.join(', ')}</p>
-                <p className='r-paragraph'>{singleBook.description}</p>
+                <div dangerouslySetInnerHTML={{ __html: singleBook.description }} />
             </div>
         </div>
     );
