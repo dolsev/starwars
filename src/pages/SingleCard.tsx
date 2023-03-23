@@ -31,12 +31,14 @@ function SingleCard() {
     )
 
     return (
-        <div className='book'>
+        <div className='single-book'>
             {isLoading ? <Spinner /> : null}
             <div className='left'>
                 {singleBook.imageLinks.thumbnail ? (
                     <div className='thumbnail-container'>
-                        <img className='thumbnail' src={singleBook.imageLinks.small} alt={singleBook.title}/>
+                        <img className='thumbnail'
+                             src={singleBook.imageLinks.large || singleBook.imageLinks.medium || singleBook.imageLinks.small||singleBook.imageLinks.thumbnail}
+                             alt={singleBook.title}/>
                     </div>
                 ) : (
                     <div className='thumbnail-container'>
@@ -45,10 +47,10 @@ function SingleCard() {
                 )}
             </div>
             <div className='right'>
-                <h1>{singleBook.title}</h1>
-                <p>{singleBook.authors.join(', ')}</p>
-                <p>{singleBook.categories.join(', ')}</p>
-                <p>{singleBook.description}</p>
+                <h1 className='r-title'>{singleBook.title}</h1>
+                <p className='r-paragraph'>{singleBook.authors.join(', ')}</p>
+                <p className='r-paragraph'>{singleBook.categories.join(', ')}</p>
+                <p className='r-paragraph'>{singleBook.description}</p>
             </div>
         </div>
     );
