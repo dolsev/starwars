@@ -53,7 +53,7 @@ function Navbar() {
     return (
         <nav>
             <div className='nav-container'>
-                <h1 className='action-call'>Try to find your best book yet!</h1>
+                <div><div className='logo'><img src='/images/ebook.png' alt='logo'/> <h1>BoookSearch</h1></div><h1 className='action-call'>Find your best book yet!</h1></div>
                 <form onSubmit={handleSearch}>
                     <div className="search-box">
                         <input
@@ -71,7 +71,7 @@ function Navbar() {
                 </form>
                 <div className="filter-sorting-box">
                     <div className="categories">
-                        <label htmlFor="categories">Categories: </label>
+                        <label htmlFor="categories">Categories  </label>
                         <select name="categories" id="categories" value={filter} onChange={handleFilteringChange}>
                             <option value="all">all</option>
                             <option value="art">art</option>
@@ -83,7 +83,7 @@ function Navbar() {
                         </select>
                     </div>
                     <div className="sorting">
-                        <label htmlFor="sorting">Sort by: </label>
+                        <label htmlFor="sorting">Sort by </label>
                         <select name="sorting" id="sorting" value={sorting} onChange={handleSortingChange}>
                             <option value="relevance">relevance</option>
                             <option value="newest">newest</option>

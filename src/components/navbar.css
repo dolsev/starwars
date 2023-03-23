@@ -14,10 +14,29 @@ nav {
     flex-direction: column;
     gap: 10px;
 }
+.logo{
+    display: flex;
+    align-items:flex-end;
+    justify-content: center;
+    margin: 0;
+}
+.logo h1 {
+    margin-bottom: 0;
+    font-weight: 800;
+    background: -webkit-linear-gradient(#7e0d7e, #6666d7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 
+}
+
+.logo img{
+    height: 32px;
+}
 .action-call {
     margin: 10px 0 0;
-    color: rgba(107, 73, 236, 0.86);
+    color: rgba(51, 45, 45, 0.86);
+    font-weight: 600;
+    text-decoration: underline;
 }
 
 .search-box {
@@ -38,7 +57,7 @@ nav {
 }
 
 .searchTerm:focus {
-    color: #566164;
+    color: #39494d;
 }
 
 .searchButton {

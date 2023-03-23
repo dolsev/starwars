@@ -5,11 +5,13 @@ import {AppState} from "../redux/types";
 import {setIsLoading, setSingleBook} from "../redux/actions";
 import {fetchBook} from "../api";
 import './singleCard.css'
+import Spinner from "../components/Spinner";
 
 function SingleCard() {
     const dispatch = useDispatch();
     const {id} = useParams();
     const singleBook = useSelector((state: AppState) => state.singleBook);
+    const isLoading = useSelector((state: AppState) => state.isLoading);
     useEffect(
         () => {
             const handleBook = async () => {
@@ -25,11 +27,12 @@ function SingleCard() {
                 }
             }
             handleBook()
-        }, [singleBook, dispatch, id]
+        }, [dispatch, id]
     )
 
     return (
         <div className='book'>
+            {isLoading ? <Spinner /> : null}
             <div className='left'>
                 {singleBook.imageLinks.thumbnail ? (
                     <div className='thumbnail-container'>
