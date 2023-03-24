@@ -54,7 +54,7 @@ function Navbar() {
     return (
         <nav>
             <div className='nav-container'>
-                <Link to={'/'}><div className='logo'><img src='/ebook.png' alt='logo'/> <h1>BoookSearch</h1></div><h1 className='action-call'>Find your best book yet!</h1></Link>
+                <Link to={'/'}><div className='logo'><img src='/images/ebook.png' alt='logo'/> <h1>BoookSearch</h1></div><h1 className='action-call'>Find your best book yet!</h1></Link>
                 <form onSubmit={handleSearch}>
                     <div className="search-box">
                         <input
@@ -66,7 +66,7 @@ function Navbar() {
                         />
 
                         <button type="submit" className="searchButton">
-                            <img className='search-image' alt="search" src="/search.png"/>
+                            <img className='search-image' alt="search" src="/images/search.png"/>
                         </button>
                     </div>
                 </form>
