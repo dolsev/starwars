@@ -2,7 +2,6 @@
   "name": "bookapp-search",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dolsev.github.io/bookapp-search/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -27,6 +26,7 @@
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
+  "homepage": "https://dolsev.github.io/bookapp-search/",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
