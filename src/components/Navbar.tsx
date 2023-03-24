@@ -5,15 +5,16 @@ import {fetchBooks} from "../api";
 import {useDispatch, useSelector} from "react-redux";
 import {AppState} from "../redux/types";
 import './navbar.css'
-import {useNavigate} from "react-router-dom";
+import {useNavigate, Link} from "react-router-dom";
+import Spinner from "./Spinner";
 
 
 function Navbar() {
-    const dispatch = useDispatch();
+    const isLoading = useSelector((state: AppState) => state.isLoading);
     const searchQuery = useSelector((state: AppState) => state.searchQuery);
     const sorting = useSelector((state: AppState) => state.sorting);
     const filter = useSelector((state: AppState) => state.filter);
-
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const handleSearch = async (event: any) => {
         event.preventDefault();
@@ -53,7 +54,7 @@ function Navbar() {
     return (
         <nav>
             <div className='nav-container'>
-                <div><div className='logo'><img src='/images/ebook.png' alt='logo'/> <h1>BoookSearch</h1></div><h1 className='action-call'>Find your best book yet!</h1></div>
+                <Link to={'/'}><div className='logo'><img src='/images/ebook.png' alt='logo'/> <h1>BoookSearch</h1></div><h1 className='action-call'>Find your best book yet!</h1></Link>
                 <form onSubmit={handleSearch}>
                     <div className="search-box">
                         <input
@@ -91,6 +92,7 @@ function Navbar() {
                     </div>
                 </div>
             </div>
+            {isLoading && <Spinner />}
         </nav>    );
 }
 

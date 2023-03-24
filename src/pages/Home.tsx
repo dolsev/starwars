@@ -46,7 +46,6 @@ const Home = () => {
         <div className='Home'>
             {booksNumber>1?<h4>{booksNumber} books found just for you! </h4>:null}
             <div className='book-list-wrapper'>
-                {isLoading ? <Spinner /> : null}
                     <div className='books-list'>
                         {books.map((book) => (
                             <Link to={`/book/${book.id}`}>

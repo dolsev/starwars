@@ -7,10 +7,6 @@ interface FetchBookOptions {
     id?: string;
 }
 
-const defaultOptionsBook: FetchBookOptions = {
-    id: '',
-};
-
 interface FetchBookResult {
     fetchedBook: Book;
 }

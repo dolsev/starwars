@@ -5,13 +5,11 @@ import {AppState} from "../redux/types";
 import {setIsLoading, setSingleBook} from "../redux/actions";
 import {fetchBook} from "../api";
 import './singleCard.css'
-import Spinner from "../components/Spinner";
 
 function SingleCard() {
     const dispatch = useDispatch();
     const {id} = useParams();
     const singleBook = useSelector((state: AppState) => state.singleBook);
-    const isLoading = useSelector((state: AppState) => state.isLoading);
     useEffect(
         () => {
             const handleBook = async () => {
@@ -30,28 +28,37 @@ function SingleCard() {
     )
 
     return (
-        <div className='single-book'>
-            {isLoading ? <Spinner /> : null}
-            <div className='left'>
-                {singleBook.imageLinks.thumbnail ? (
-                    <div className='thumbnail-container'>
-                        <img className='thumbnail'
-                             src={singleBook.imageLinks.large || singleBook.imageLinks.medium || singleBook.imageLinks.small||singleBook.imageLinks.thumbnail}
-                             alt={singleBook.title}/>
-                    </div>
-                ) : (
-                    <div className='thumbnail-container'>
-                        <img className='thumbnail' src='/images/CoverNotAvailable.jpg' alt={singleBook.title}/>
-                    </div>
-                )}
+        <div className="single-book">
+            <div className="thumbnail-container">
+                <img
+                    className="thumbnail"
+                    src={
+                        singleBook.imageLinks?.large ||
+                        singleBook.imageLinks?.medium ||
+                        singleBook.imageLinks?.small ||
+                        singleBook.imageLinks?.thumbnail ||
+                        "/images/CoverNotAvailable.jpg"
+                    }
+                    alt={singleBook.title}
+                />
             </div>
-            <div className='right'>
-                <h1 className='r-title'>{singleBook.title}</h1>
-                <p className='authors'>{singleBook.authors.join(', ')}</p>
-                <p className='categories'>{singleBook.categories.join(', ')}</p>
-                <p className='description' dangerouslySetInnerHTML={{ __html: singleBook.description }} />
+            <div className="single-book-info">
+                <div className="single-book-wrap">
+                    <h1 className="single-book-title">{singleBook.title}</h1>
+                    <p className="single-book-authors">
+                        {singleBook.authors?.join(", ")}
+                    </p>
+                    <p className="single-book-categories">
+                        {singleBook.categories?.join(", ")}
+                    </p>
+                </div>
+                <p
+                    className="single-book-description"
+                    dangerouslySetInnerHTML={{ __html: singleBook.description }}
+                />
             </div>
         </div>
+
     );
 }
 

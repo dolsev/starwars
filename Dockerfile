@@ -1,25 +1,23 @@
-# base image
+# Base image
 FROM node:latest
 
-# set working directory
+# Set working directory
 WORKDIR /app
 
-# install app dependencies
+# Copy package files
 COPY package*.json ./
+
+# Install dependencies
 RUN npm install
 
-# copy app files
+# Copy app files
 COPY . .
 
-# build app
+# Build app
 RUN npm run build
 
-# set environment variables
-ENV PORT=3000
-ENV NODE_ENV=production
-
-# expose port
+# Expose port
 EXPOSE 3000
 
-# start command
+# Start command
 CMD ["npm", "start"]
