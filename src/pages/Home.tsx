@@ -54,7 +54,7 @@ const Home = () => {
 
                                     <div className='thumbnail-container'>
                                         <img className='thumbnail' src={book.imageLinks.thumbnail+'zoom=2'} alt={book.title} /></div>
-                                    :<div className='thumbnail-container'><img className='thumbnail' src='CoverNotAvailable.jpg' alt={book.title} /></div>
+                                    :<div className='thumbnail-container'><img className='thumbnail' src='/CoverNotAvailable.jpg' alt={book.title} /></div>
                                 }
                                 <h4 className='book-title'>
                                     {book.title.length < 95 ? book.title : book.title.substring(0,95) + '...'}
