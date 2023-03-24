@@ -10,7 +10,7 @@ import Navbar from "./components/Navbar";
 function App() {
     return (
         <div className='app'>
-            <BrowserRouter>
+            <BrowserRouter basename='/bookapp-search'>
                 <Navbar/>
                 <Routes>
                     <Route path="/" element={<Home/>}></Route>
