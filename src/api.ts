@@ -29,6 +29,7 @@ const fetchBook = async (
             categories: data.volumeInfo.categories || [],
             description: data.volumeInfo.description || '',
             imageLinks: data.volumeInfo.imageLinks || { thumbnail: '' },
+            publishedDate:data.volumeInfo.publishedDate || ''
         };
         return { fetchedBook };
     } catch (error) {
@@ -92,6 +93,7 @@ const fetchBooks = async (
                     categories: item.volumeInfo.categories || [],
                     description: item.volumeInfo.description || '',
                     imageLinks: item.volumeInfo.imageLinks || { thumbnail: '' },
+                    publishedDate:item.volumeInfo.publishedDate ||'',
                 };
                 fetchedBooks.push(book);
                 idSet.add(bookId);

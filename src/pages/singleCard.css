@@ -1,3 +1,7 @@
+.single-book-wrapper{
+    display: flex;
+    justify-content: center;
+}
 .single-book {
     display: flex;
     padding: 20px;
@@ -7,6 +11,8 @@
     gap: 15px;
     overflow: hidden;
     margin-top:15px;
+    align-items: center;
+    max-width: 800px;
 }
 
 .single-book .thumbnail-container {
@@ -14,8 +20,8 @@
     justify-content: flex-end;
     align-items: center;
     flex:0 0 auto;
-    width: 300px;
-    height: 400px;
+    width: 150px;
+    height: 200px;
     background-color: #eee;
     border-radius: 8px;
     overflow: hidden;
@@ -27,12 +33,13 @@
 }
 
 .single-book-wrap{
-    background-color: #f1f1f5;
+    background-color: #e3e3f3;
     border-radius: 10px;
+    padding: 10px;
 }
 
 .book-info {
-    background-color: rgba(225, 230, 231, 0.45);
+    background-color: rgba(210, 203, 239, 0.45);
     border-radius: 10px;
     flex: 1;
     padding: 10px;
@@ -59,8 +66,8 @@
     }
 
     .thumbnail-container {
-        width: 150px;
-        height: 200px;
+        width: 85px;
+        height: 100px;
     }
 
     .single-book-title {

@@ -28,14 +28,12 @@ function SingleCard() {
     )
 
     return (
+        <div className='single-book-wrapper'>
         <div className="single-book">
             <div className="thumbnail-container">
                 <img
                     className="thumbnail"
                     src={
-                        singleBook.imageLinks?.large ||
-                        singleBook.imageLinks?.medium ||
-                        singleBook.imageLinks?.small ||
                         singleBook.imageLinks?.thumbnail ||
                         "/images/CoverNotAvailable.jpg"
                     }
@@ -58,7 +56,7 @@ function SingleCard() {
                 />
             </div>
         </div>
-
+        </div>
     );
 }
 

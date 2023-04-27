@@ -19,8 +19,11 @@ const initialState: AppState = {
             small:'',
             medium:'',
             large:'',
-        }
-    }
+            extraLarge:'',
+        },
+            publishedDate:'',
+    },
+
 };
 
 export default initialState;

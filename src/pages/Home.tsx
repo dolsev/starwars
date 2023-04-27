@@ -68,7 +68,9 @@ const Home = () => {
                                         {book.categories.join(', ').length < 95 ? book.categories?.join(', ') : book.categories?.join(', ').substring(0, 95) + '...'}
                                     </p>
                                 </div>
-
+                                <div className='date'>
+                                    <p>{book.publishedDate}</p>
+                                </div>
                             </div>
                             </Link>
                         ))}
