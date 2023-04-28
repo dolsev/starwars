@@ -10,7 +10,15 @@ interface CharacterGridProps {
     characters: Characters[];
 }
 
+const soundFiles = ['sounds/saber1.mp3', 'sounds/saber2.mp3', 'sounds/saber3.mp3', 'sounds/saber4.mp3'];
+
 const CharacterGrid: React.FC<CharacterGridProps> = ({ characters }) => {
+    const playRandomSound = () => {
+        const soundIndex = Math.floor(Math.random() * soundFiles.length);
+        const audio = new Audio(soundFiles[soundIndex]);
+        audio.play();
+    };
+
     return (
         <Grid container spacing={2}>
             {characters.map((character) => (
@@ -23,6 +31,7 @@ const CharacterGrid: React.FC<CharacterGridProps> = ({ characters }) => {
                                     transform: 'scale(1.05)',
                                 },
                             }}
+                            onMouseEnter={playRandomSound}
                         >
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="div">
