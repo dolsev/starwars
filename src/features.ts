@@ -1,3 +1,4 @@
+//features.ts
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface Character {

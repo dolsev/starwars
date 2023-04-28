@@ -1,3 +1,4 @@
+//api.ts
 import { Characters } from './redux/types';
 
 const BASE_URL = 'https://swapi.dev/api/people';

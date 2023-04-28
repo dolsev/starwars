@@ -4,7 +4,7 @@ import { fetchCharacters } from '../api';
 import { AppState } from '../redux/types';
 import { setCharacters, setIsLoading } from '../redux/actions';
 import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import CharacterGrid from "../ui/CharacterGrid";
 
 const Home = () => {
@@ -34,20 +34,20 @@ const Home = () => {
     };
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center',marginTop:'15px' }}>
-            <Box sx={{ width: '100%', maxWidth: '800px' }}>
+        <Grid container spacing={2} justifyContent='center' marginTop='15px'>
+            <Grid item xs={12} sm={10} md={8} sx={{ maxWidth: '800px' }}>
                 <CharacterGrid characters={characters} />
-            </Box>
+            </Grid>
 
-            {characters.length < 1 ? null : (
-                <Box sx={{ marginTop: '15px', display: 'flex', justifyContent: 'center', paddingBottom: '5px' }}>
-                    <Button onClick={handleLoadMore} variant="contained" disabled={isLoading}>
-                        {isLoading ? "Loading..." : "Load More"}
-                    </Button>
-                </Box>
-            )}
+            {characters.length === 0 && null}
 
-        </Box>
+            <Grid item xs={12} sx={{ marginTop: '15px', display: 'flex', justifyContent: 'center', paddingBottom: '5px' }}>
+                <Button onClick={handleLoadMore} variant="contained" disabled={isLoading}>
+                    {isLoading ? "Loading..." : "Load More"}
+                </Button>
+            </Grid>
+        </Grid>
     );
 };
+
 export default Home;

@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+//SingleCard.tsx
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppState } from '../redux/types';
@@ -11,6 +12,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 function SingleCard() {
     const dispatch = useDispatch();
@@ -32,6 +34,8 @@ function SingleCard() {
         handleCharacter();
     }, [dispatch, id]);
 
+    const [editedProperty, setEditedProperty] = useState('');
+
     const propertiesToDisplay = [
         { key: 'height', displayName: 'Height' },
         { key: 'mass', displayName: 'Mass' },
@@ -41,6 +45,17 @@ function SingleCard() {
         { key: 'birth_year', displayName: 'Birth Year' },
         { key: 'gender', displayName: 'Gender' },
     ];
+
+    const handleEditClick = (propertyKey: string) => {
+        setEditedProperty(propertyKey);
+    };
+
+    const handleEditSave = (value: string) => {
+        const newSingleCharacter = { ...singleCharacter };
+        newSingleCharacter[editedProperty] = value;
+        dispatch(setSingleCharacter(newSingleCharacter));
+        setEditedProperty('');
+    };
 
     return (
         <Container maxWidth='sm' sx={{ justifyContent: 'center', marginTop: '30px' }}>
@@ -56,14 +71,27 @@ function SingleCard() {
                                     {property.displayName}
                                 </Grid>
                                 <Grid item xs={8}>
-                                    {singleCharacter[property.key]}
+                                    {editedProperty === property.key ? (
+                                        <TextField
+                                            variant='standard'
+                                            defaultValue={singleCharacter[property.key]}
+                                            onBlur={(e) => handleEditSave(e.target.value)}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    const target = e.target as HTMLInputElement;
+                                                    handleEditSave(target.value);
+                                                }
+                                            }}
+
+                                        />
+                                    ) : (
+                                        <span onClick={() => handleEditClick(property.key)}>{singleCharacter[property.key]}</span>
+                                    )}
                                 </Grid>
                             </React.Fragment>
                         ))}
                     </Grid>
-
                 </CardContent>
-
             </Card>
             <Box sx={{marginTop: '15px', display: 'flex', justifyContent: 'center', paddingBottom: '5px'}}>                <Button variant='contained' sx={{ marginTop: '20px' }} onClick={() => navigate(-1)}>
                    Go Back
