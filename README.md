@@ -1,2 +1,2 @@
-A star-wars React-Redux application
+A star-wars React-Redux-Api application
 
