@@ -79,7 +79,6 @@ const fetchCharacters = async (
         }
 
         const data = await response.json();
-        console.log(data)
 
         const fetchedCharacters: Characters[] = data.results.map((result: any) => ({
             id: result.url.split('/').slice(-2, -1)[0],
