@@ -1,29 +1,29 @@
-//initialState.ts
-import {AppState} from './types';
+import { AppState} from './types';
 
 const initialState: AppState = {
     searchQuery: '',
-    books: [],
+    characters: [],
     isLoading:false,
-    sorting:'relevance',
-    filter:'all',
-    booksNumber:0,
-    singleBook: {
+    charactersNumber:0,
+    singleCharacter: {
         id: '',
-        title: '',
-        authors: [],
-        categories: [],
-        description: '',
-        imageLinks: {
-            thumbnail: '',
-            small:'',
-            medium:'',
-            large:'',
-            extraLarge:'',
-        },
-            publishedDate:'',
+        name: '',
+        height: '',
+        mass: '',
+        hair_color: '',
+        skin_color: '',
+        eye_color: '',
+        birth_year: '',
+        gender: '',
+        homeworld: '',
+        films: [],
+        species: [],
+        vehicles: [],
+        starships: [],
+        created: '',
+        edited: '',
+        url: '',
     },
-
 };
 
 export default initialState;

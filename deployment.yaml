@@ -1,5 +1,0 @@
-containers:
-  - name: bookapp-search
-    image: dolod777/bookapp-search:latest
-    ports:
-      - containerPort: 3000

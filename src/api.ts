@@ -1,110 +1,111 @@
-//api.ts
-import { Book } from './redux/types';
-const apiKey=process.env.REACT_APP_API_KEY
-const BASE_URL = 'https://www.googleapis.com/books/v1/volumes';
-//Fetch_book
-interface FetchBookOptions {
-    id?: string;
+import { Characters, } from './redux/types';
+
+const BASE_URL = 'https://swapi.dev/api/people';
+
+// Fetch_character
+interface FetchCharacterOptions {
+    id: string;
 }
 
-interface FetchBookResult {
-    fetchedBook: Book;
+interface FetchCharacterResult {
+    fetchedCharacter: Characters;
 }
 
-const fetchBook = async (
-    options: FetchBookOptions = {},
-): Promise<FetchBookResult> => {
-    const { id = '' } = options;
-    const url = `${BASE_URL}/${id}?key=${apiKey}`;
+const fetchCharacter = async ({ id }: FetchCharacterOptions): Promise<FetchCharacterResult> => {
+    const url = `${BASE_URL}/${id}/`;
+
     try {
         const response = await fetch(url);
+
         if (!response.ok) {
-            throw new Error('Error fetching book');
+            throw new Error('Error fetching character');
         }
+
         const data = await response.json();
-        const fetchedBook: Book = {
-            id: data.id,
-            title: data.volumeInfo.title,
-            authors: data.volumeInfo.authors || [],
-            categories: data.volumeInfo.categories || [],
-            description: data.volumeInfo.description || '',
-            imageLinks: data.volumeInfo.imageLinks || { thumbnail: '' },
-            publishedDate:data.volumeInfo.publishedDate || ''
+
+        const fetchedCharacter: Characters = {
+            id: data.url.split('/').slice(-2, -1)[0],
+            name: data.name,
+            birth_year: data.birth_year,
+            gender: data.gender,
+            height: data.height,
+            mass: data.mass,
+            hair_color: data.hair_color,
+            skin_color: data.skin_color,
+            eye_color: data.eye_color,
+            homeworld: data.homeworld,
+            films: data.films,
+            species: data.species,
+            vehicles: data.vehicles,
+            starships: data.starships,
+            created: data.created,
+            edited: data.edited,
+            url: data.url,
         };
-        return { fetchedBook };
+
+        return { fetchedCharacter };
     } catch (error) {
         console.error(error);
         throw error;
     }
 };
 
-//FetchBooks
-interface FetchBooksOptions {
-    searchQuery: string;
+// FetchChars
+interface FetchCharactersOptions {
+    searchQuery?: string;
     page?: number;
-    maxResults?: number;
-    sorting?:string,
-    filter?:string
 }
 
-const defaultOptions: FetchBooksOptions = {
+const defaultOptions: FetchCharactersOptions = {
     searchQuery: '',
     page: 1,
-    maxResults: 30,
-    sorting:'relevance',
-    filter:'all'
 };
 
-interface FetchBooksResult {
-    fetchedBooks: Book[];
+interface FetchCharactersResult {
+    fetchedCharacters: Characters[];
     totalItems: number;
 }
-const fetchBooks = async (
-    options: FetchBooksOptions = defaultOptions,
-): Promise<FetchBooksResult> => {
-    const { searchQuery, page, maxResults, sorting, filter } = {
-        ...defaultOptions,
-        ...options,
-    };
-    const startIndex = ((page ?? 1) - 1) * (maxResults ?? 30);
-    let sort = '';
-    if (sorting === 'newest') {
-        sort = '&orderBy=newest';
-    }
-    let filtering = '';
-    filtering = filter === 'all' ? '' : `subject:${filter}+`;
-    const url = `${BASE_URL}?q=${filtering}${searchQuery}&startIndex=${startIndex}&maxResults=${maxResults}${sort}&key=${apiKey}`;
+
+const fetchCharacters = async (
+    options: FetchCharactersOptions = defaultOptions
+): Promise<FetchCharactersResult> => {
+    const { searchQuery = '', page = 1 } = options;
+    const url = `${BASE_URL}/?search=${searchQuery}&page=${page}`;
+
     try {
         const response = await fetch(url);
         if (!response.ok) {
-            throw new Error('Error fetching books');
+            throw new Error('Error fetching characters');
         }
+
         const data = await response.json();
-        const totalItems = data.totalItems;
-        const fetchedBooks: Book[] = [];
-        const idSet = new Set<string>();
-        data.items.forEach((item: any) => {
-            const bookId = item.id;
-            if (!idSet.has(bookId)) {
-                const book: Book = {
-                    id: bookId,
-                    title: item.volumeInfo.title,
-                    authors: item.volumeInfo.authors || [],
-                    categories: item.volumeInfo.categories || [],
-                    description: item.volumeInfo.description || '',
-                    imageLinks: item.volumeInfo.imageLinks || { thumbnail: '' },
-                    publishedDate:item.volumeInfo.publishedDate ||'',
-                };
-                fetchedBooks.push(book);
-                idSet.add(bookId);
-            }
-        });
-        return { fetchedBooks, totalItems };
+        console.log(data)
+
+        const fetchedCharacters: Characters[] = data.results.map((result: any) => ({
+            id: result.url.split('/').slice(-2, -1)[0],
+            name: result.name,
+            birth_year: result.birth_year,
+            gender: result.gender,
+            height: result.height,
+            mass: result.mass,
+            hair_color: result.hair_color,
+            skin_color: result.skin_color,
+            eye_color: result.eye_color,
+            homeworld: result.homeworld,
+            films: result.films,
+            species: result.species,
+            vehicles: result.vehicles,
+            starships: result.starships,
+            created: result.created,
+            edited: result.edited,
+            url: result.url,
+        }));
+
+        return { fetchedCharacters, totalItems: data.count };
     } catch (error) {
         console.error(error);
         throw error;
     }
 };
 
-
-export { fetchBooks, fetchBook };
+export { fetchCharacters, fetchCharacter };

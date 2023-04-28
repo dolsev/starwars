@@ -1,30 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface Book {
+export interface Character {
     id: string;
-    title: string;
-    authors: string[];
-    categories: string[];
-    description: string;
-    thumbnail: string;
+    name: string;
+    height: string;
+    mass: string;
+    hair_color: string;
+    skin_color: string;
+    eye_color: string;
+    birth_year: string;
+    gender: string;
+    homeworld: string;
+    films: string[];
+    species: string[];
+    vehicles: string[];
+    starships: string[];
+    created: string;
+    edited: string;
+    url: string;
 }
-
-interface BooksState {
+export interface CharacterState {
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
     error: string | null;
-    books: Book[];
+    characters: Character[];
 }
 
-const initialState: BooksState = {
+const initialState: CharacterState = {
     status: 'idle',
     error: null,
-    books: [],
+    characters: [],
 };
 
-const booksSlice = createSlice({
-    name: 'books',
+const characterSlice = createSlice({
+    name: 'character',
     initialState,
     reducers: {},
 });
 
-export default booksSlice.reducer;
+export default characterSlice.reducer;

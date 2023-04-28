@@ -9,16 +9,16 @@ export const reducer = (state: AppState = initialState, action: AppAction): AppS
                 ...state,
                 searchQuery: action.payload.searchQuery,
             };
-        case 'SET_BOOKS':
+        case 'SET_CHARACTERS':
             return {
                 ...state,
-                books: action.payload.books,
+                characters: action.payload.characters,
                 isLoading: false,
             };
-        case 'SET_SINGLE_BOOK':
+        case 'SET_SINGLE_CHARACTER':
             return {
                 ...state,
-                singleBook: action.payload.singleBook,
+                singleCharacter: action.payload.singleCharacter,
                 isLoading: false,
             };
         case 'SET_IS_LOADING':
@@ -26,20 +26,11 @@ export const reducer = (state: AppState = initialState, action: AppAction): AppS
                 ...state,
                 isLoading: action.payload.isLoading,
             };
-        case 'SET_SORTING':
+
+        case "SET_CHARACTERS_NUMBER":
             return {
                 ...state,
-                sorting: action.payload.sorting,
-            };
-        case 'SET_FILTERING':
-            return {
-                ...state,
-                filter: action.payload.filter,
-            };
-        case "SET_BOOKS_NUMBER":
-            return {
-                ...state,
-                booksNumber:action.payload.booksNumber
+                charactersNumber:action.payload.charactersNumber
             }
 
 

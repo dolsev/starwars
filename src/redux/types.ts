@@ -1,31 +1,33 @@
 //types.ts
-
-export interface Book {
-    id: string;
-    title: string;
-    authors: string[];
-    categories: string[];
-    description: string;
-    imageLinks: {
-        thumbnail: string;
-        small:string;
-        medium:string;
-        large:string;
-        extraLarge:string;
-    };
-        publishedDate:string;
+export interface Characters {
+    id?: string;
+    name?: string;
+    height?: string;
+    mass?: string;
+    hair_color?: string;
+    skin_color?: string;
+    eye_color?: string;
+    birth_year?: string;
+    gender?: string;
+    homeworld?: string;
+    films?: string[];
+    species?: string[];
+    vehicles?: string[];
+    starships?: string[];
+    created?: string;
+    edited?: string;
+    url?: string;
+    [key: string]: any;
 }
+
 
 export interface AppState {
     searchQuery: string;
-    books: Book[];
-    isLoading:boolean;
-    sorting:string;
-    filter:string;
-    booksNumber:number,
-    singleBook:Book
+    characters: Characters[];
+    isLoading: boolean;
+    charactersNumber: number;
+    singleCharacter: Characters;
 }
-
 
 export interface SetSearchQueryAction {
     type: 'SET_SEARCH_QUERY';
@@ -34,47 +36,37 @@ export interface SetSearchQueryAction {
     };
 }
 
-export interface SetBooksAction {
-    type: 'SET_BOOKS';
+export interface SetCharactersAction {
+    type: 'SET_CHARACTERS';
     payload: {
-        books: Book[];
+        characters: Characters[];
     };
 }
-export interface SetSingleBookAction {
-    type: 'SET_SINGLE_BOOK';
+
+export interface SetSingleCharacterAction {
+    type: 'SET_SINGLE_CHARACTER';
     payload: {
-        singleBook: Book;
+        singleCharacter: Characters;
     };
 }
+
 export interface SetIsLoadingAction {
     type: 'SET_IS_LOADING';
     payload: {
         isLoading: boolean;
     };
 }
-export interface SetSortingAction {
-    type: 'SET_SORTING';
-    payload: {
-        sorting:string,
-    }
-}
-export interface SetFiltering {
-    type:'SET_FILTERING';
+
+export interface SetCharactersNumber {
+    type:'SET_CHARACTERS_NUMBER';
     payload:{
-        filter:string
-    }
-}
-export interface SetBooksNumber {
-    type:'SET_BOOKS_NUMBER';
-    payload:{
-        booksNumber:number
-    }
+        charactersNumber:number;
+    };
 }
 
-export type AppAction = SetSearchQueryAction
-    | SetBooksAction
+export type AppAction =
+    | SetSearchQueryAction
+    | SetCharactersAction
     | SetIsLoadingAction
-    | SetSortingAction
-    | SetFiltering
-    | SetBooksNumber
-    | SetSingleBookAction;
+    | SetCharactersNumber
+    | SetSingleCharacterAction;

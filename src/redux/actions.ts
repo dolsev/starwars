@@ -1,5 +1,5 @@
 //actions.ts
-import { AppAction, Book } from './types';
+import { AppAction, Characters } from './types';
 
 export const setSearchQuery = (searchQuery: string): AppAction => ({
     type: 'SET_SEARCH_QUERY',
@@ -8,16 +8,16 @@ export const setSearchQuery = (searchQuery: string): AppAction => ({
     },
 });
 
-export const setBooks = (books: Book[]): AppAction => ({
-    type: 'SET_BOOKS',
+export const setCharacters = (characters: Characters[]): AppAction => ({
+    type: 'SET_CHARACTERS',
     payload: {
-        books,
+        characters,
     },
 });
-export const setSingleBook = (singleBook: Book): AppAction => ({
-    type: 'SET_SINGLE_BOOK',
+export const setSingleCharacter = (singleCharacter: Characters): AppAction => ({
+    type: 'SET_SINGLE_CHARACTER',
     payload: {
-        singleBook,
+        singleCharacter,
     },
 });
 export const setIsLoading = (isLoading: boolean): AppAction => ({
@@ -25,21 +25,10 @@ export const setIsLoading = (isLoading: boolean): AppAction => ({
     payload: {isLoading},
 });
 
-export const setSorting = (sorting:string): AppAction => ({
-    type: 'SET_SORTING',
-    payload: {
-        sorting,
-    },
-});
-export const setFiltering = (filter:string):AppAction =>({
-    type:'SET_FILTERING',
+
+export const setCharactersNumber = (charactersNumber:number):AppAction =>({
+    type:'SET_CHARACTERS_NUMBER',
     payload:{
-        filter,
-    }
-})
-export const setBooksNumber = (booksNumber:number):AppAction =>({
-    type:'SET_BOOKS_NUMBER',
-    payload:{
-        booksNumber,
+       charactersNumber,
     }
 })
