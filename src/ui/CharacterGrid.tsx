@@ -17,6 +17,7 @@ const CharacterGrid: React.FC<CharacterGridProps> = ({ characters }) => {
         const soundIndex = Math.floor(Math.random() * soundFiles.length);
         const audio = new Audio(soundFiles[soundIndex]);
         audio.play();
+        console.log(audio)
     };
 
     return (
