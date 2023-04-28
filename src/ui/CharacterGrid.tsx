@@ -10,7 +10,7 @@ interface CharacterGridProps {
     characters: Characters[];
 }
 
-const soundFiles = ['sounds/saber1.mp3', 'sounds/saber2.mp3', 'sounds/saber3.mp3', 'sounds/saber4.mp3'];
+const soundFiles = ['/sounds/saber1.mp3', '/sounds/saber2.mp3', '/sounds/saber3.mp3', '/sounds/saber4.mp3'];
 
 const CharacterGrid: React.FC<CharacterGridProps> = ({ characters }) => {
     const playRandomSound = () => {
