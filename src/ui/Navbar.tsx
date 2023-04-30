@@ -108,20 +108,21 @@ export default function Navbar() {
                         noWrap
                         component={Link}
                         to="/"
-                        sx={{ color: "white", flexGrow: 1, display: { sm: "block", xs:'none' } }}
+                        sx={{letterSpacing:'2px', color: "white", fontWeight:200, flexGrow: 1, display: { sm: "block", xs:'none' } }}
                     >
                         Star Wars Characters
                     </Typography>
                     <form onSubmit={handleSearch}>
                         <Search>
                             <SearchIconWrapper>
-                                <SearchIcon />
+                                <SearchIcon sx={{color:'white'}} />
                             </SearchIconWrapper>
                             <StyledInputBase
                                 placeholder="Search…"
                                 inputProps={{ 'aria-label': 'search' }}
                                 value={searchQuery}
                                 onChange={(event) => dispatch(setSearchQuery(event.target.value))}
+                                sx={{color:'white'}}
                             />
                         </Search>
                     </form>

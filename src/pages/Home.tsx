@@ -34,6 +34,10 @@ const Home = () => {
     };
 
     return (
+        <div>
+            <div id='stars'></div>
+            <div id='stars2'></div>
+            <div id='stars3'></div>
         <Grid container spacing={2} justifyContent='center' marginTop='15px'>
             <Grid item xs={12} sm={10} md={8} sx={{ maxWidth: '800px' }}>
                 <CharacterGrid characters={characters} />
@@ -42,11 +46,13 @@ const Home = () => {
             {characters.length === 0 && null}
 
             <Grid item xs={12} sx={{ marginTop: '15px', display: 'flex', justifyContent: 'center', paddingBottom: '5px' }}>
-                <Button onClick={handleLoadMore} variant="contained" disabled={isLoading}>
+                <Button sx={{color:'white'}} onClick={handleLoadMore} variant="contained" disabled={isLoading}>
                     {isLoading ? "Loading..." : "Load More"}
                 </Button>
             </Grid>
         </Grid>
+        </div>
+
     );
 };
 

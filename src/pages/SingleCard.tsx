@@ -57,20 +57,40 @@ function SingleCard() {
         setEditedProperty('');
     };
 
-    return (
-        <Container maxWidth='sm' sx={{ justifyContent: 'center', marginTop: '30px' }}>
-            <Card sx={{ maxWidth: 600 }}>
-                <CardContent>
-                    <Typography gutterBottom variant='h4' component='div' sx={{ fontWeight: 'bold', color: '#1976d2' }}>
+    return (<div>
+        <div id='stars'></div>
+        <div id='stars2'></div>
+        <div id='stars3'></div>
+        <Container maxWidth='sm' sx={{ justifyContent: 'center', marginTop: '30px',borderRadius:'12px'}}>
+            <Card sx={{ maxWidth: 600,
+                background:'#000000',
+                border:'3px solid #a29d9d',
+                padding:'0 20px',
+                borderRadius:'10px' }}>
+                <CardContent
+                sx={{padding:0}}
+                >
+                    <Typography
+                        gutterBottom
+                        variant="h3"
+                        component="div"
+                        sx={{
+                            color:'black',
+                            fontWeight: '900',
+                            WebkitTextStroke: '2px #feda4a',
+                            textStroke: '2px #feda4a'
+                        }}
+                    >
                         {singleCharacter.name}
                     </Typography>
-                    <Grid container spacing={2}>
+
+                    <Grid container spacing={2} sx={{color: 'rgb(255,255,255)'}}>
                         {propertiesToDisplay.map((property) => (
                             <React.Fragment key={property.key}>
-                                <Grid item xs={4} sx={{ fontWeight: 'bold' }}>
+                                <Grid item xs={4} sx={{ fontWeight:700, letterSpacing:'0.5px' }}>
                                     {property.displayName}
                                 </Grid>
-                                <Grid item xs={8}>
+                                <Grid item xs={8} >
                                     {editedProperty === property.key ? (
                                         <TextField
                                             variant='standard'
@@ -82,23 +102,31 @@ function SingleCard() {
                                                     handleEditSave(target.value);
                                                 }
                                             }}
-
+                                            InputProps={{
+                                                style: {
+                                                    color: 'grey',
+                                                },
+                                            }}
                                         />
                                     ) : (
                                         <span onClick={() => handleEditClick(property.key)}>{singleCharacter[property.key]}</span>
                                     )}
+
                                 </Grid>
                             </React.Fragment>
                         ))}
                     </Grid>
                 </CardContent>
             </Card>
-            <Box sx={{marginTop: '15px', display: 'flex', justifyContent: 'center', paddingBottom: '5px'}}>                <Button variant='contained' sx={{ marginTop: '20px' }} onClick={() => navigate(-1)}>
+            <Box sx={{marginTop: '15px', display: 'flex', justifyContent: 'center', paddingBottom: '5px'}}>
+                <Button variant='contained' sx={{ marginTop: '20px',color:'white' }} onClick={() => navigate(-1)}>
                    Go Back
                 </Button>
             </Box>
 
         </Container>
+        </div>
+
     );
 }
 
