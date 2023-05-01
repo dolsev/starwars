@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
-import {BrowserRouter, Navigate, Route, Routes, useLocation} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import SingleCard from "./pages/SingleCard";
@@ -16,12 +16,6 @@ const theme = createTheme({
 });
 
 function App() {
-    const location = useLocation();
-
-    useEffect(() => {
-        sessionStorage.setItem('lastUrl', location.pathname);
-    }, [location]);
-
     return (
         <ThemeProvider theme={theme}>
             <div className='app'>
