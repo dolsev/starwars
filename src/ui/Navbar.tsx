@@ -89,7 +89,9 @@ export default function Navbar() {
         dispatch(setSearchQuery(""));
         const event = new Event("submit") as unknown as React.FormEvent<HTMLFormElement>;
         handleSearch(event);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
 
 
     return (
