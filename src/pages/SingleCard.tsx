@@ -23,7 +23,14 @@ function SingleCard() {
         const handleCharacter = async () => {
             dispatch(setIsLoading(true));
             try {
-                const { fetchedCharacter } = await fetchCharacter({ id: id ?? '' });
+                let fetchedCharacter;
+                const storedCharacter = localStorage.getItem(`singleCharacter_${id}`);
+                if (storedCharacter) {
+                    fetchedCharacter = JSON.parse(storedCharacter);
+                } else {
+                    const result = await fetchCharacter({ id: id ?? '' });
+                    fetchedCharacter = result.fetchedCharacter;
+                }
                 dispatch(setSingleCharacter(fetchedCharacter));
             } catch (error) {
                 console.error(error);
@@ -55,7 +62,11 @@ function SingleCard() {
         newSingleCharacter[editedProperty] = value;
         dispatch(setSingleCharacter(newSingleCharacter));
         setEditedProperty('');
+        const characterId = singleCharacter.id; // get the character's ID
+        localStorage.setItem(`singleCharacter_${characterId}`, JSON.stringify(newSingleCharacter));
     };
+
+
 
     return (<div>
         <div id='stars'></div>
@@ -66,7 +77,8 @@ function SingleCard() {
                 background:'#000000',
                 border:'3px solid #a29d9d',
                 padding:'0 20px',
-                borderRadius:'10px' }}>
+                borderRadius:'10px',
+                color:'white'}}>
                 <CardContent
                 sx={{padding:0}}
                 >
@@ -116,6 +128,9 @@ function SingleCard() {
                             </React.Fragment>
                         ))}
                     </Grid>
+                    <Typography
+                    sx={{marginTop:'15px', color:'grey'}}
+                    >*Note: double click on description to edit</Typography>
                 </CardContent>
             </Card>
             <Box sx={{marginTop: '15px', display: 'flex', justifyContent: 'center', paddingBottom: '5px'}}>

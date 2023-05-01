@@ -15,12 +15,15 @@ const CharacterGrid: React.FC<CharacterGridProps> = ({ characters }) => {
 
 
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={2}
+        >
             {characters.map((character) => (
                 <Grid item xs={12} sm={6} md={4} lg={4} key={character.id}>
                     <Link to={`/character/${character.id}`}>
                         <Card
                             sx={{
+                                background:'white',
+                                border:'2px solid white',
                                 transition: 'transform .2s',
                                 '&:hover': {
                                     transform: 'scale(1.05)',
@@ -31,7 +34,7 @@ const CharacterGrid: React.FC<CharacterGridProps> = ({ characters }) => {
                                 <Typography gutterBottom variant="h5" component="div">
                                     {character.name}
                                 </Typography>
-                                <Typography variant="body2" color="text.secondary">
+                                <Typography variant="body2" color="grey">
                                     Gender: {character.gender}
                                 </Typography>
                             </CardContent>
