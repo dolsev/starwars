@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a TypeScript and React-based web application that allows users to choose a Star Wars character and modify information regarding that character, saving it in local storage. The application uses the Star Wars API to fetch character data, and it also includes Material-UI components for styling.
+This is a TypeScript and React-based web app that allows users to choose a Star Wars character and modify information regarding that character, saving it in local storage. The application uses the Star Wars API to fetch character data, and it also includes Material-UI components for styling.
 
 ## Installation
 
