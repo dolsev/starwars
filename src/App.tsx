@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import Error from "./pages/Error";
 import Home from "./pages/Home";
 import SingleCard from "./pages/SingleCard";
@@ -19,7 +19,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <div className='app'>
-                <HashRouter basename='/starwars'>
+                <BrowserRouter basename='/starwars'>
                     <Navbar/>
                     <Routes>
                         <Route path="/" element={<Home/>}></Route>
@@ -27,7 +27,7 @@ function App() {
                         <Route path="*" element={<Navigate replace to="/404"/>}/>
                         <Route path="/404" element={<Error />} />
                     </Routes>
-                </HashRouter>
+                </BrowserRouter>
             </div>
         </ThemeProvider>
     )
