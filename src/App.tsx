@@ -19,7 +19,7 @@ function App() {
     return (
         <ThemeProvider theme={theme}>
             <div className='app'>
-                <BrowserRouter basename='/starwars'>
+                <BrowserRouter >
                     <Navbar/>
                     <Routes>
                         <Route path="/" element={<Home/>}></Route>
