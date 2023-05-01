@@ -3,14 +3,14 @@ import { Typography, Button, Box } from '@mui/material';
 
 function Error() {
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh', color:'white' }}>
             <Typography variant="h3" gutterBottom>
                 These are not the droids you're looking for...
             </Typography>
             <Typography variant="body1" gutterBottom>
                 Error 404 - The page you requested does not exist. Perhaps try a different search or go back to the homepage.
             </Typography>
-            <Button variant="contained" color="primary" href="/starwars">
+            <Button variant="contained" color="primary" href="/starwars" sx={{color:'white'}}>
                 Back to Home
             </Button>
         </Box>
