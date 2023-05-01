@@ -8,7 +8,7 @@ import { Avatar, Typography } from "@mui/material";
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchQuery, setIsLoading, setCharacters, setCharactersNumber } from '../redux/actions';
+import { setSearchQuery, setIsLoading, setCharacters, } from '../redux/actions';
 import { AppState } from '../redux/types';
 import { fetchCharacters } from '../api';
 import { useNavigate } from 'react-router-dom';
@@ -72,12 +72,7 @@ export default function Navbar() {
                 searchQuery,
                 page: 1,
             });
-
-            const { totalItems } = await fetchCharacters({
-                searchQuery,
-            });
             dispatch(setCharacters(fetchedCharacters));
-            dispatch(setCharactersNumber(totalItems));
         } catch (error) {
             console.error(error);
         } finally {
@@ -106,11 +101,17 @@ export default function Navbar() {
                         to="/"
                     />
                     <Typography
-                        variant="h6"
+                        variant="h5"
                         noWrap
                         component={Link}
                         to="/"
-                        sx={{letterSpacing:'2px', color: "white", fontWeight:200, flexGrow: 1, display: { sm: "block", xs:'none' } }}
+                        sx={{letterSpacing:'2px',
+                            color: "white",
+                            fontWeight:900,
+                            flexGrow: 1,
+                            WebkitTextStroke: '1px #000000b0',
+                            textStroke: '1px #000000b0',
+                            display: { sm: "block", xs:'none' } }}
                     >
                         Star Wars Characters
                     </Typography>

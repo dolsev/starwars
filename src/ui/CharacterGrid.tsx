@@ -22,7 +22,8 @@ const CharacterGrid: React.FC<CharacterGridProps> = ({ characters }) => {
                     <Link to={`/character/${character.id}`}>
                         <Card
                             sx={{
-                                background:'white',
+                                color:'white',
+                                background:'transparent',
                                 border:'2px solid white',
                                 transition: 'transform .2s',
                                 '&:hover': {
@@ -31,10 +32,12 @@ const CharacterGrid: React.FC<CharacterGridProps> = ({ characters }) => {
                             }}
                         >
                             <CardContent>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    {character.name}
+                                <Typography gutterBottom variant="h5" component="div"
+                                >{character.name}
                                 </Typography>
-                                <Typography variant="body2" color="grey">
+                                <Typography variant="body2"
+                                sx={{color:'#d5d5d5'}}
+                                >
                                     Gender: {character.gender}
                                 </Typography>
                             </CardContent>

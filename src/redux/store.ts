@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { reducer } from './reducers';
 
-// Load state from local storage if it exists
 const persistedState = localStorage.getItem('reduxState')
     ? JSON.parse(localStorage.getItem('reduxState')!)
     : undefined;

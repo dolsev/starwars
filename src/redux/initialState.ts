@@ -4,7 +4,6 @@ const initialState: AppState = {
     searchQuery: '',
     characters: [],
     isLoading:false,
-    charactersNumber:0,
     singleCharacter: {
         id: '',
         name: '',

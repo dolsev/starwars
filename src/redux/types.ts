@@ -25,7 +25,6 @@ export interface AppState {
     searchQuery: string;
     characters: Characters[];
     isLoading: boolean;
-    charactersNumber: number;
     singleCharacter: Characters;
 }
 
@@ -57,16 +56,9 @@ export interface SetIsLoadingAction {
     };
 }
 
-export interface SetCharactersNumber {
-    type:'SET_CHARACTERS_NUMBER';
-    payload:{
-        charactersNumber:number;
-    };
-}
 
 export type AppAction =
     | SetSearchQueryAction
     | SetCharactersAction
     | SetIsLoadingAction
-    | SetCharactersNumber
     | SetSingleCharacterAction;

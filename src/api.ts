@@ -11,16 +11,13 @@ interface FetchCharacterResult {
     fetchedCharacter: Characters;
 }
 
-const fetchCharacter = async ({
-                                  id,
-                              }: FetchCharacterOptions): Promise<FetchCharacterResult> => {
+const fetchCharacter = async ({id,}: FetchCharacterOptions): Promise<FetchCharacterResult> => {
     const url = `${BASE_URL}/${id}/`;
-
     try {
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error(`Error fetching character with id ${id}`);
+             new Error(`Error fetching character with id ${id}`);
         }
 
         const data = await response.json();
@@ -59,7 +56,7 @@ const fetchCharacters = async (
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error(`Error fetching characters with search query ${searchQuery} and page ${page}`);
+            new Error(`Error fetching characters with search query ${searchQuery} and page ${page}`);
         }
 
         const data = await response.json();

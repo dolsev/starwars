@@ -92,3 +92,18 @@ body {
   }
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #24b9dd;
+  border-radius: 4px;
+}

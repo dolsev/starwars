@@ -27,13 +27,6 @@ export const reducer = (state: AppState = initialState, action: AppAction): AppS
                 isLoading: action.payload.isLoading,
             };
 
-        case "SET_CHARACTERS_NUMBER":
-            return {
-                ...state,
-                charactersNumber:action.payload.charactersNumber
-            }
-
-
         default:
             return state;
     }

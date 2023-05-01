@@ -24,11 +24,3 @@ export const setIsLoading = (isLoading: boolean): AppAction => ({
     type: 'SET_IS_LOADING',
     payload: {isLoading},
 });
-
-
-export const setCharactersNumber = (charactersNumber:number):AppAction =>({
-    type:'SET_CHARACTERS_NUMBER',
-    payload:{
-       charactersNumber,
-    }
-})
